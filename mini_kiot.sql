@@ -26,8 +26,8 @@ CREATE TABLE `api_tokens` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
   `user_id` bigint NOT NULL,
-  `token` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ví dụ: Flutter App Token',
+  `token` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ví dụ: Flutter App Token',
   `expires_at` datetime DEFAULT NULL,
   `last_used_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -60,13 +60,13 @@ CREATE TABLE `audit_logs` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
   `user_id` bigint NOT NULL,
-  `action` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'create_product, delete_order...',
-  `entity_type` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `action` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'create_product, delete_order...',
+  `entity_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `entity_id` bigint DEFAULT NULL,
   `old_values` json DEFAULT NULL,
   `new_values` json DEFAULT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci,
+  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `shop_id` (`shop_id`),
@@ -96,15 +96,15 @@ DROP TABLE IF EXISTS `branches`;
 CREATE TABLE `branches` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL COMMENT 'Thuộc shop nào',
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên chi nhánh',
-  `code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã chi nhánh (CN001, CN002...)',
-  `address` text COLLATE utf8mb4_unicode_ci COMMENT 'Địa chỉ chi nhánh',
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'SĐT chi nhánh',
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Email chi nhánh',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên chi nhánh',
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã chi nhánh (CN001, CN002...)',
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'Địa chỉ chi nhánh',
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'SĐT chi nhánh',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Email chi nhánh',
   `latitude` decimal(10,8) DEFAULT NULL COMMENT 'Vị trí GPS',
   `longitude` decimal(11,8) DEFAULT NULL,
   `is_main` tinyint(1) DEFAULT '0' COMMENT 'Chi nhánh chính',
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci DEFAULT 'active',
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'active',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -137,13 +137,13 @@ CREATE TABLE `cashiers` (
   `shop_id` bigint NOT NULL,
   `branch_id` bigint NOT NULL,
   `user_id` bigint NOT NULL,
-  `shift_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shift_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `opening_amount` decimal(15,2) DEFAULT '0.00',
   `closing_amount` decimal(15,2) DEFAULT NULL,
-  `status` enum('open','closed') COLLATE utf8mb4_unicode_ci DEFAULT 'open',
+  `status` enum('open','closed') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'open',
   `opened_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `closed_at` datetime DEFAULT NULL,
-  `note` text COLLATE utf8mb4_unicode_ci,
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `shop_id` (`shop_id`),
   KEY `branch_id` (`branch_id`),
@@ -173,13 +173,13 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên danh mục',
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Đường dẫn SEO',
-  `description` text COLLATE utf8mb4_unicode_ci COMMENT 'Mô tả danh mục',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên danh mục',
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Đường dẫn SEO',
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'Mô tả danh mục',
   `parent_id` bigint DEFAULT NULL COMMENT 'Danh mục cha (cây phân cấp)',
   `sort_order` int DEFAULT '0' COMMENT 'Thứ tự hiển thị',
   `is_active` tinyint(1) DEFAULT '1',
-  `image` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện danh mục',
+  `image` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện danh mục',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -211,10 +211,10 @@ DROP TABLE IF EXISTS `customer_groups`;
 CREATE TABLE `customer_groups` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `min_spent` decimal(15,2) DEFAULT '0.00',
   `discount_percent` decimal(5,2) DEFAULT '0.00',
-  `color` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '#000000',
+  `color` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '#000000',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `shop_id` (`shop_id`),
@@ -241,10 +241,10 @@ DROP TABLE IF EXISTS `customers`;
 CREATE TABLE `customers` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `birthday` date DEFAULT NULL,
   `total_spent` decimal(15,2) DEFAULT '0.00',
   `points` int DEFAULT '0',
@@ -280,8 +280,8 @@ CREATE TABLE `expenses` (
   `shop_id` bigint NOT NULL,
   `branch_id` bigint NOT NULL,
   `amount` decimal(15,2) NOT NULL,
-  `category` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tiền điện, tiền nước, lương...',
-  `note` text COLLATE utf8mb4_unicode_ci,
+  `category` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tiền điện, tiền nước, lương...',
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `expense_date` date NOT NULL,
   `created_by` bigint NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -314,7 +314,7 @@ DROP TABLE IF EXISTS `import_templates`;
 CREATE TABLE `import_templates` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `columns_json` json NOT NULL COMMENT '[{"field":"sku","column":"A"}, ...]',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -380,12 +380,12 @@ CREATE TABLE `inventory_logs` (
   `shop_id` bigint NOT NULL,
   `variant_id` bigint NOT NULL,
   `branch_id` bigint NOT NULL,
-  `reference_type` enum('purchase','sale','adjustment','transfer','return','initial') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference_type` enum('purchase','sale','adjustment','transfer','return','initial') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `reference_id` bigint NOT NULL,
   `quantity_change` int NOT NULL,
   `quantity_before` int NOT NULL,
   `quantity_after` int NOT NULL,
-  `note` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `note` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_by` bigint NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -423,7 +423,7 @@ CREATE TABLE `loyalty_points` (
   `customer_id` bigint NOT NULL,
   `order_id` bigint DEFAULT NULL,
   `points` int NOT NULL COMMENT '+100 hoặc -50',
-  `reason` enum('purchase','redeem','adjust','birthday') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reason` enum('purchase','redeem','adjust','birthday') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `created_by` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -456,9 +456,9 @@ CREATE TABLE `notifications` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
   `user_id` bigint DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci,
-  `type` enum('order','inventory','system') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `type` enum('order','inventory','system') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_read` tinyint(1) DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -520,9 +520,9 @@ DROP TABLE IF EXISTS `order_payments`;
 CREATE TABLE `order_payments` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `order_id` bigint NOT NULL,
-  `payment_method` enum('cash','bank_transfer','card','momo','zalo_pay','debt') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_method` enum('cash','bank_transfer','card','momo','zalo_pay','debt') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` decimal(15,2) NOT NULL,
-  `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `paid_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `created_by` bigint NOT NULL,
   PRIMARY KEY (`id`),
@@ -554,15 +554,15 @@ CREATE TABLE `orders` (
   `shop_id` bigint NOT NULL,
   `branch_id` bigint NOT NULL,
   `customer_id` bigint DEFAULT NULL,
-  `code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'HD00001',
-  `order_type` enum('pos','online','phone') COLLATE utf8mb4_unicode_ci DEFAULT 'pos',
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'HD00001',
+  `order_type` enum('pos','online','phone') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'pos',
   `total_amount` decimal(15,2) NOT NULL,
   `discount_amount` decimal(15,2) DEFAULT '0.00',
   `final_amount` decimal(15,2) NOT NULL,
   `paid_amount` decimal(15,2) DEFAULT '0.00',
   `debt_amount` decimal(15,2) GENERATED ALWAYS AS ((`final_amount` - `paid_amount`)) VIRTUAL,
-  `status` enum('pending','confirmed','completed','cancelled','returned') COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
-  `note` text COLLATE utf8mb4_unicode_ci,
+  `status` enum('pending','confirmed','completed','cancelled','returned') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `sold_by` bigint NOT NULL COMMENT 'Nhân viên bán',
   `sold_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -591,6 +591,58 @@ LOCK TABLES `orders` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `permissions`
+--
+
+DROP TABLE IF EXISTS `permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `permissions` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `code` varchar(100) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `name` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK7lcb6glmvwlro3p2w2cewxtvd` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `permissions`
+--
+
+LOCK TABLES `permissions` WRITE;
+/*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `permistion_role`
+--
+
+DROP TABLE IF EXISTS `permistion_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `permistion_role` (
+  `role_id` bigint NOT NULL,
+  `permission_id` bigint NOT NULL,
+  PRIMARY KEY (`role_id`,`permission_id`),
+  KEY `FK41ou81e4d7f65omi2ma1to0wc` (`permission_id`),
+  CONSTRAINT `FK41ou81e4d7f65omi2ma1to0wc` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`),
+  CONSTRAINT `FK4cctollugt0sm3r2jvicg71an` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `permistion_role`
+--
+
+LOCK TABLES `permistion_role` WRITE;
+/*!40000 ALTER TABLE `permistion_role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `permistion_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `product_attribute_values`
 --
 
@@ -601,8 +653,8 @@ CREATE TABLE `product_attribute_values` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `attribute_id` bigint NOT NULL,
   `shop_id` bigint NOT NULL,
-  `value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giá trị: Đỏ, Xanh, S, M, 8GB, 256GB, 40, 41...',
-  `color_code` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã màu hex nếu là màu (#FF0000)',
+  `value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giá trị: Đỏ, Xanh, S, M, 8GB, 256GB, 40, 41...',
+  `color_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã màu hex nếu là màu (#FF0000)',
   `display_order` int DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -633,8 +685,8 @@ DROP TABLE IF EXISTS `product_attributes`;
 CREATE TABLE `product_attributes` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên thuộc tính: Màu sắc, Kích thước, RAM, CPU, Dung lượng...',
-  `slug` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên thuộc tính: Màu sắc, Kích thước, RAM, CPU, Dung lượng...',
+  `slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `display_order` int DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -666,8 +718,8 @@ CREATE TABLE `product_images` (
   `product_id` bigint DEFAULT NULL,
   `variant_id` bigint DEFAULT NULL,
   `shop_id` bigint NOT NULL,
-  `image_url` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alt_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alt_text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `display_order` int DEFAULT '0',
   `is_main` tinyint(1) DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -701,15 +753,15 @@ CREATE TABLE `product_variants` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `product_id` bigint NOT NULL COMMENT 'Thuộc sản phẩm gốc nào',
   `shop_id` bigint NOT NULL,
-  `sku` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'SKU riêng cho biến thể (VD: IP15-PRO-256-BLACK)',
-  `barcode` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sku` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'SKU riêng cho biến thể (VD: IP15-PRO-256-BLACK)',
+  `barcode` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `selling_price` decimal(15,2) NOT NULL COMMENT 'Giá bán riêng của biến thể',
   `purchase_price` decimal(15,2) DEFAULT '0.00',
   `weight` decimal(10,3) DEFAULT NULL,
   `length` decimal(10,3) DEFAULT NULL,
   `width` decimal(10,3) DEFAULT NULL,
   `height` decimal(10,3) DEFAULT NULL,
-  `main_image` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh chính của biến thể',
+  `main_image` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh chính của biến thể',
   `is_active` tinyint(1) DEFAULT '1',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -771,12 +823,12 @@ CREATE TABLE `products` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
   `category_id` bigint DEFAULT NULL COMMENT 'Thuộc danh mục nào',
-  `name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên sản phẩm gốc (VD: Áo thun nam, iPhone 15 Pro)',
-  `slug` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Đường dẫn SEO',
-  `description` text COLLATE utf8mb4_unicode_ci COMMENT 'Mô tả chi tiết sản phẩm',
-  `short_description` varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mô tả ngắn hiển thị web',
-  `unit` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT 'cái' COMMENT 'Đơn vị tính',
-  `main_image` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên sản phẩm gốc (VD: Áo thun nam, iPhone 15 Pro)',
+  `slug` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Đường dẫn SEO',
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'Mô tả chi tiết sản phẩm',
+  `short_description` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mô tả ngắn hiển thị web',
+  `unit` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'cái' COMMENT 'Đơn vị tính',
+  `main_image` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT '1' COMMENT 'Hiển thị trên web/POS không',
   `has_variants` tinyint(1) DEFAULT '0' COMMENT 'Có dùng biến thể không (true = có size/màu/RAM…)',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -836,9 +888,9 @@ DROP TABLE IF EXISTS `promotions`;
 CREATE TABLE `promotions` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` enum('percent','fixed','buy_x_get_y') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` enum('percent','fixed','buy_x_get_y') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` decimal(15,2) NOT NULL,
   `min_order_amount` decimal(15,2) DEFAULT '0.00',
   `max_discount_amount` decimal(15,2) DEFAULT '0.00',
@@ -907,11 +959,11 @@ CREATE TABLE `purchase_orders` (
   `shop_id` bigint NOT NULL,
   `branch_id` bigint NOT NULL,
   `supplier_id` bigint DEFAULT NULL,
-  `code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_amount` decimal(15,2) DEFAULT '0.00',
   `paid_amount` decimal(15,2) DEFAULT '0.00',
-  `status` enum('draft','confirmed','completed','cancelled') COLLATE utf8mb4_unicode_ci DEFAULT 'draft',
-  `note` text COLLATE utf8mb4_unicode_ci,
+  `status` enum('draft','confirmed','completed','cancelled') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'draft',
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `purchased_at` datetime DEFAULT NULL,
   `created_by` bigint NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -946,8 +998,8 @@ DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL COMMENT 'Thuộc shop nào',
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên vai trò (Quản lý, Thu ngân...)',
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên vai trò (Quản lý, Thu ngân...)',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `permissions` json DEFAULT NULL COMMENT 'Quyền hạn dạng JSON array ["product:read", "order:create"...]',
   `is_system_role` tinyint(1) DEFAULT '0' COMMENT 'Vai trò hệ thống không thể xóa',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -978,13 +1030,13 @@ DROP TABLE IF EXISTS `shops`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `shops` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên cửa hàng',
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Đường dẫn duy nhất (shop1.mini-kiotviet.com)',
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Email đăng ký',
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'SĐT liên hệ',
-  `domain` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Domain tùy chỉnh',
-  `package_type` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên cửa hàng',
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Đường dẫn duy nhất (shop1.mini-kiotviet.com)',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Email đăng ký',
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'SĐT liên hệ',
+  `domain` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Domain tùy chỉnh',
+  `package_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `expiry_date` datetime DEFAULT NULL COMMENT 'Ngày hết hạn gói',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -1017,12 +1069,12 @@ DROP TABLE IF EXISTS `suppliers`;
 CREATE TABLE `suppliers` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci,
-  `contact_person` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `contact_person` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_shop_id` (`shop_id`),
@@ -1049,8 +1101,8 @@ DROP TABLE IF EXISTS `system_settings`;
 CREATE TABLE `system_settings` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL,
-  `key` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci,
+  `key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -1069,6 +1121,32 @@ LOCK TABLES `system_settings` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_permission`
+--
+
+DROP TABLE IF EXISTS `user_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_permission` (
+  `user_id` bigint NOT NULL,
+  `permission_id` bigint NOT NULL,
+  PRIMARY KEY (`user_id`,`permission_id`),
+  KEY `FK1r9shydjvgeefuwsrhrcqtkxd` (`permission_id`),
+  CONSTRAINT `FK1r9shydjvgeefuwsrhrcqtkxd` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`),
+  CONSTRAINT `FKn8ba4v3gvw1d82t3hofelr82t` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_permission`
+--
+
+LOCK TABLES `user_permission` WRITE;
+/*!40000 ALTER TABLE `user_permission` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_roles`
 --
 
@@ -1077,16 +1155,15 @@ DROP TABLE IF EXISTS `user_roles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_roles` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `user_id` bigint NOT NULL,
+  `assigned_at` datetime(6) DEFAULT NULL,
   `role_id` bigint NOT NULL,
-  `assigned_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_user_role` (`user_id`,`role_id`),
-  KEY `idx_user_id` (`user_id`),
-  KEY `idx_role_id` (`role_id`),
-  CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Gán vai trò cho user';
+  KEY `FKh8ciramu9cc9q3qcqiv4ue8a6` (`role_id`),
+  CONSTRAINT `FKh8ciramu9cc9q3qcqiv4ue8a6` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
+  CONSTRAINT `FKhfh9dx7w3ubf1co1vdev94g3f` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1108,23 +1185,27 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shop_id` bigint NOT NULL COMMENT 'Thuộc shop nào',
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Email đăng nhập',
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mật khẩu đã hash (BCrypt)',
-  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role` enum('super_admin','shop_owner','manager','cashier','staff') COLLATE utf8mb4_unicode_ci DEFAULT 'staff' COMMENT 'Vai trò cơ bản',
-  `status` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role_id` bigint NOT NULL COMMENT 'Vai trò cơ bản',
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Email đăng nhập',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mật khẩu đã hash (BCrypt)',
+  `first_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_login_at` timestamp NULL DEFAULT NULL COMMENT 'Lần đăng nhập cuối',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isActive` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `UK6dotkott2kjsp8vw4d0m25fb7` (`email`),
   KEY `idx_shop_id` (`shop_id`),
   KEY `idx_email` (`email`),
   KEY `idx_status` (`status`),
+  KEY `fk_role_id` (`role_id`),
+  CONSTRAINT `fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Người dùng hệ thống';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1253,4 +1334,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-01 13:02:14
+-- Dump completed on 2025-12-02  4:36:46
