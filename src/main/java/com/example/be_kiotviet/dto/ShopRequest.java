@@ -1,4 +1,4 @@
-package com.example.be_kiotviet.dto.Request.Shop;
+package com.example.be_kiotviet.dto;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 

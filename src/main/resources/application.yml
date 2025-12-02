@@ -15,9 +15,9 @@ spring:
       connection-timeout: 20000
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect   # MySQL 8+ dùng cái này m?i chu?n
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: update          # l?n ??u ch?y ? t?o b?ng, sau này ??i thành validate
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -27,24 +27,24 @@ spring:
         use_sql_comments: true
         jdbc:
           time_zone: Asia/Ho_Chi_Minh
-        # Fix l?i blob/json v?i MySQL
+
           lob:
             non_contextual_creation: true
 
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcher   # Fix l?i Swagger v?i Spring Boot 3.x
+      matching-strategy: ant_path_matcher
 
   servlet:
     multipart:
       max-file-size: 10MB
-      max-request-size: 50MB   # cho upload ?nh s?n ph?m
+      max-request-size: 50MB
 
 # JWT Config
 jwt:
-  secret: ${JWT_SECRET:6d6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b}  # 256-bit
-  expiration: 86400000      # 24 gi? (access token)
-  refresh-expiration: 604800000  # 7 ngày (refresh token)
+  secret: ${JWT_SECRET:6d6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b}
+  expiration: 86400000
+  refresh-expiration: 604800000
 
 # Swagger & OpenAPI
 springdoc:
@@ -57,7 +57,7 @@ springdoc:
     enabled: true
   show-actuator: true
 
-# Logging (?? th?y SQL + JWT log ??p)
+# Logging
 logging:
   level:
     com.kiotviet.mini: DEBUG

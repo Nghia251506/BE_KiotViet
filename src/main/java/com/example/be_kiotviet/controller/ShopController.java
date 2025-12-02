@@ -1,7 +1,7 @@
 package com.example.be_kiotviet.controller;
 
-import com.example.be_kiotviet.dto.Request.Shop.ShopRequest;
-import com.example.be_kiotviet.dto.Response.Shop.ShopResponse;
+import com.example.be_kiotviet.dto.ShopRequest;
+import com.example.be_kiotviet.dto.ShopResponse;
 import com.example.be_kiotviet.service.Shop.ShopService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/shops")
+@RequestMapping("/api/admin/shops")
 @RequiredArgsConstructor
 public class ShopController {
     private final ShopService service;

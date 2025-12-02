@@ -1,4 +1,4 @@
-package com.example.be_kiotviet.dto.Response.Shop;
+package com.example.be_kiotviet.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;

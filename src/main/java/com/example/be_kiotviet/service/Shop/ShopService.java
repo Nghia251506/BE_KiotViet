@@ -1,7 +1,7 @@
 package com.example.be_kiotviet.service.Shop;
 
-import com.example.be_kiotviet.dto.Request.Shop.ShopRequest;
-import com.example.be_kiotviet.dto.Response.Shop.ShopResponse;
+import com.example.be_kiotviet.dto.ShopRequest;
+import com.example.be_kiotviet.dto.ShopResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
