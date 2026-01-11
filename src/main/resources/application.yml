@@ -1,5 +1,7 @@
 # src/main/resources/application.yml
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: BE_kiotviet
 
@@ -25,9 +27,10 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
+        temp:
+          use_jdbc_metadata_defaults: false
         jdbc:
           time_zone: Asia/Ho_Chi_Minh
-
           lob:
             non_contextual_creation: true
 
@@ -39,7 +42,25 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 50MB
-
+mail:
+  host: smtp.gmail.com
+  port: 587
+  username: ntn8530@gmail.com
+  password: aqwbkloixnylyyum   # App Password 16 ký tự
+  properties:
+    mail:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
+          required: true
+  test-connection: false
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      # password: your_password (nếu bạn set password cho Redis)
+      # database: 0 (mặc định)
 # JWT Config
 jwt:
   secret: ${JWT_SECRET:6d6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b6d6b}

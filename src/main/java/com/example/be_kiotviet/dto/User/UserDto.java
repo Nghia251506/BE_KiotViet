@@ -1,5 +1,6 @@
 package com.example.be_kiotviet.dto.User;
 
+import com.example.be_kiotviet.entity.Shops;
 import lombok.Data;
 
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
 public class UserDto {
     private Long id;
     private Long shopId;
+    private String shopCode;
     private String username;
     private String firstName;
     private String lastName;

@@ -51,7 +51,7 @@ public class SecurityConfig {
                                 "/", "/article/**", "/category/**", "/api/public/**","/dev/rebuild-redis"
                         ).permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // Sẽ tìm ROLE_ADMIN
+                        .requestMatchers("/api/admin/**").hasRole("Admin")// Sẽ tìm ROLE_ADMIN
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

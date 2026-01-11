@@ -10,7 +10,8 @@ public class UserMapper {
 
         UserDto dto = new UserDto();
         dto.setId(user.getId());
-        dto.setShopId(user.getShopId());
+        dto.setShopId(user.getShop().getId());
+        dto.setShopCode(user.getShop().getCode());
         dto.setUsername(user.getUsername());
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());

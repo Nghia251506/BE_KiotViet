@@ -6,5 +6,7 @@ import java.util.Optional;
 
 public interface ShopRepository extends JpaRepository<Shops, Long> {
     boolean existsBySlug(String slug);
-    Optional<Shops> findBySlug(String slug);
+    Optional<Shops> findByCode(String code);
+    // Kiểm tra code tồn tại (unique)
+    boolean existsByCode(String code);
 }

@@ -35,6 +35,7 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .subject(user.getUsername())
                 .claim("userId", user.getId())
+                .claim("shopId", user.getShop().getId())
                 .claim("roleCode", "ROLE_" + user.getRole().getName())
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(expiry))
@@ -128,5 +129,23 @@ public class JwtTokenProvider {
             return false;
         }
     }
+    public Long getShopIdFromToken(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .verifyWith(key)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
 
+            Object shopIdObj = claims.get("shopId"); // tên claim bạn lưu khi login
+            if (shopIdObj instanceof Integer) {
+                return ((Integer) shopIdObj).longValue();
+            } else if (shopIdObj instanceof Long) {
+                return (Long) shopIdObj;
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

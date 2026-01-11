@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import com.example.be_kiotviet.entity.Shops;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -33,9 +34,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @Column(name = "shop_id", nullable = false)
     private Long shopId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id")
+    private Shops shop;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false,
@@ -87,6 +89,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "permission_id")   // FK tới permissions.id
     )
     private Set<Permission> permissions = new HashSet<>();
+    @Column(name ="mustchangepassword")
+    private boolean mustchangepassword = false;
 
     // Tự động set createdAt và updatedAt
     @PrePersist
@@ -107,7 +111,7 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", shopId=" + shopId +
+                ", shopId=" + shop.getId() +
                 ", status='" + status + '\'' +
                 '}';
     }

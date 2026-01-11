@@ -9,6 +9,7 @@ public interface ShopService {
     ShopResponse create(ShopRequest request);
     ShopResponse update(Long id, ShopRequest request);
     ShopResponse getById(Long id);
+    ShopResponse getByCode(String code);
     Page<ShopResponse> getAll(Pageable pageable);
     void delete(Long id);
 }

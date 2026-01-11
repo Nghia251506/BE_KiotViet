@@ -4,9 +4,11 @@ import com.example.be_kiotviet.dto.User.UserCreateRequest;
 import com.example.be_kiotviet.dto.User.UserDto;
 import com.example.be_kiotviet.dto.User.UserUpdateRequest;
 import com.example.be_kiotviet.entity.Role;
+import com.example.be_kiotviet.entity.Shops;
 import com.example.be_kiotviet.entity.User;
 import com.example.be_kiotviet.mapper.UserMapper;
 import com.example.be_kiotviet.repository.RoleRepository;
+import com.example.be_kiotviet.repository.ShopRepository;
 import com.example.be_kiotviet.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -25,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepo;
     private final RoleRepository roleRepo;
     private final PasswordEncoder passwordEncoder;
+    private final ShopRepository shopRepo;
 
     // ============== CÁC HÀM TRONG INTERFACE ==============
 
